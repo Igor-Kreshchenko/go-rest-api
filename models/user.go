@@ -2,9 +2,9 @@ package models
 
 type User struct {
 	ID       uint   `json:"id" gorm:"primary_key"`
-	Name     string `json:"title"`
-	Email    string `json:"author"`
-	Password string `json:"text"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type UpdateUserInput struct {

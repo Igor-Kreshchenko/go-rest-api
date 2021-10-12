@@ -1,7 +1,8 @@
 package models
 
 type Post struct {
-	ID     uint   `json:"id" gorm:"primary_key"`
+	ID     uint   `json:"id" gorm:"user_id"`
+	UserID uint   `json:"user_id"`
 	Title  string `json:"title"`
 	Author string `json:"author"`
 	Text   string `json:"text"`
