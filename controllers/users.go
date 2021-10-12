@@ -37,7 +37,8 @@ func LoginUser(c *gin.Context) {
   c.JSON(http.StatusOK, gin.H{"data": user})
 }
 
-func LogoutUser(c *gin.Context) {  // Get model if exist
+func LogoutUser(c *gin.Context) {
+  // Get model if exist
   var user models.User
 
   if err := models.DB.Where("id = ?", c.Param("id")).First(&user).Error; err != nil {
