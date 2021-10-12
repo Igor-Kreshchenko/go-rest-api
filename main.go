@@ -17,5 +17,9 @@ func main() {
   r.PATCH("/posts/:id", controllers.UpdatePost)
   r.DELETE("/posts/:id")
 
+  r.POST("/users/register", controllers.RegisterUser)
+  r.POST("/users/login", controllers.LoginUser)
+  r.GET("/users/logout/:id", controllers.LogoutUser)
+
   r.Run()
 }
