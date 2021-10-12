@@ -1,8 +1,5 @@
 package models
 
-import (
-  "github.com/jinzhu/gorm"
-)
 
 type Post struct {
   ID     uint   `json:"id" gorm:"primary_key"`
