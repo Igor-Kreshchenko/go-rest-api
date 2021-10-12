@@ -16,7 +16,7 @@ func FindPosts(c *gin.Context) {
 
 func CreatePost(c *gin.Context) {
   // Validate input
-  var input CreatePostInput
+  var input models.CreatePostInput
   if err := c.ShouldBindJSON(&input); err != nil {
     c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
     return
@@ -49,7 +49,7 @@ func UpdatePost(c *gin.Context) {
   }
 
   // Validate input
-  var input UpdatePostInput
+  var input models.UpdatePostInput
   if err := c.ShouldBindJSON(&input); err != nil {
     c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
     return
