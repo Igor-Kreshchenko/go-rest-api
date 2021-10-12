@@ -21,5 +21,9 @@ func main() {
   r.POST("/users/login", controllers.LoginUser)
   r.GET("/users/logout/:id", controllers.LogoutUser)
 
+  r.GET("/users/:id", controllers.FindUser)
+  r.DELETE("/users/:id", controllers.DeleteUser)
+  r.PATCH("/users/:id", controllers.UpdateUser)
+
   r.Run()
 }

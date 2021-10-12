@@ -7,6 +7,12 @@ type User struct {
 	Password string `json:"text"`
 }
 
+type UpdateUserInput struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 type CreateUserInput struct {
 	Name     string `json:"name"`
 	Email    string `json:"email" binding:"required"`
