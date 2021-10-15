@@ -1,30 +1,27 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/Igor-Kreshchenko/go-rest-api/models"
 	"github.com/Igor-Kreshchenko/go-rest-api/controllers"
+	"github.com/Igor-Kreshchenko/go-rest-api/models"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-  r := gin.Default()
+	router := gin.Default()
 
-  models.ConnectDataBase()
+	models.ConnectDataBase()
 
-  r.GET("/api/posts", controllers.FindPosts)
-  r.POST("/api/posts", controllers.CreatePost)
-  r.GET("/api/posts/:id", controllers.FindPost)
-  r.PATCH("/api/posts/:id", controllers.UpdatePost)
-  r.DELETE("/api/posts/:id", controllers.DeletePost)
+	router.GET("/api/posts", controllers.FindPosts)
+	router.POST("/api/posts", controllers.CreatePost)
+	router.GET("/api/posts/:id", controllers.FindPost)
+	router.PATCH("/api/posts/:id", controllers.UpdatePost)
+	router.DELETE("/api/posts/:id", controllers.DeletePost)
 
-  r.POST("/users/register", controllers.RegisterUser)
-  r.POST("/users/login", controllers.LoginUser)
-  r.GET("/users/logout/:id", controllers.LogoutUser)
+	router.GET("/api/users", controllers.FindUsers)
+	router.POST("/api/users", controllers.CreateUser)
+	router.GET("/api/users/:id", controllers.FindUser)
+	router.DELETE("/api/users/:id", controllers.DeleteUser)
+	router.PATCH("/api/users/:id", controllers.UpdateUser)
 
-  r.GET("/api/users", controllers.FindUsers)
-  r.GET("/api/users/:id", controllers.FindUser)
-  r.DELETE("/api/users/:id", controllers.DeleteUser)
-  r.PATCH("/api/users/:id", controllers.UpdateUser)
-
-  r.Run()
+	router.Run()
 }

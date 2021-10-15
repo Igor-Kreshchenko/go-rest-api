@@ -1,11 +1,14 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 type Post struct {
-	ID     uint   `json:"id" gorm:"user_id"`
-	UserID uint   `json:"user_id"`
+	gorm.Model
+	ID     uint   `json:"id"`
 	Title  string `json:"title"`
 	Author string `json:"author"`
 	Text   string `json:"text"`
+	User   User   `gorm:"foreignKey:UserRefer"`
 }
 
 type CreatePostInput struct {
