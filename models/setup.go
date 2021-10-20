@@ -18,13 +18,12 @@ func ConnectDataBase() {
 	dbuser, isName := os.LookupEnv("DB_USER")
 	dbpass, isPass := os.LookupEnv("DB_PASSWORD")
 	dbhost, isHost := os.LookupEnv("DB_HOST")
-	port, isPort := os.LookupEnv("PORT")
 
-	if !isName || !isPass || !isHost || !isPort {
+	if !isName || !isPass || !isHost {
 		logrus.Error("Cant read .env file")
 	}
 
-	dsn := fmt.Sprintf(`host=%s user=%s password=%s dbname=postgres port=%s sslmode=disable`, dbhost, dbuser, dbpass, port)
+	dsn := fmt.Sprintf(`host=%s user=%s password=%s dbname=postgres sslmode=disable`, dbhost, dbuser, dbpass)
 
 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
