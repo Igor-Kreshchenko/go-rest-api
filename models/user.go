@@ -1,10 +1,13 @@
 package models
 
+import "gorm.io/gorm"
+
 type User struct {
-	ID       uint   `json:"id"`
+	gorm.Model
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
+	Posts    []Post `gorm:"foreignKey:UserRefer"`
 }
 
 type CreateUserInput struct {
