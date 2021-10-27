@@ -1,27 +1,31 @@
 package main
 
 import (
-	"github.com/Igor-Kreshchenko/go-rest-api/controllers"
-	"github.com/Igor-Kreshchenko/go-rest-api/models"
+	"github.com/Igor-Kreshchenko/go-rest-api/api"
+	"github.com/Igor-Kreshchenko/go-rest-api/repositories"
+	"github.com/Igor-Kreshchenko/go-rest-api/services"
+	"github.com/Igor-Kreshchenko/go-rest-api/setup"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
 
-	models.ConnectDataBase()
+	db, err := setup.ConnectDataBase()
+	if err != nil {
+		panic(err)
+	}
 
-	router.GET("/api/posts", controllers.FindPosts)
-	router.POST("/api/posts", controllers.CreatePost)
-	router.GET("/api/posts/:id", controllers.FindPost)
-	router.PATCH("/api/posts/:id", controllers.UpdatePost)
-	router.DELETE("/api/posts/:id", controllers.DeletePost)
+	gr := router.Group("v1/api")
 
-	router.GET("/api/users", controllers.FindUsers)
-	router.POST("/api/users", controllers.CreateUser)
-	router.GET("/api/users/:id", controllers.FindUser)
-	router.DELETE("/api/users/:id", controllers.DeleteUser)
-	router.PATCH("/api/users/:id", controllers.UpdateUser)
+	userRepository := repositories.NewUserRepository(db)
+	userService := services.NewUserService(userRepository)
+
+	postRepository := repositories.NewPostRepository(db)
+	postService := services.NewPostService(postRepository)
+
+	api.InjectUser(gr, userService)
+	api.InjectPost(gr, postService)
 
 	router.Run()
 }

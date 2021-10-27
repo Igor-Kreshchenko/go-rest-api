@@ -1,18 +1,18 @@
-package models
+package setup
 
 import (
 	"fmt"
 	"os"
 
+	"github.com/Igor-Kreshchenko/go-rest-api/models"
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
-
-func ConnectDataBase() {
+func ConnectDataBase() (*gorm.DB, error) {
+	var db *gorm.DB
 	godotenv.Load()
 
 	dbuser, isName := os.LookupEnv("DB_USER")
@@ -25,13 +25,16 @@ func ConnectDataBase() {
 
 	dsn := fmt.Sprintf(`host=%s user=%s password=%s dbname=postgres sslmode=disable`, dbhost, dbuser, dbpass)
 
-	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
 
-	database.AutoMigrate(&Post{}, &User{})
+	err = db.AutoMigrate(&models.Post{}, &models.User{})
+	if err != nil {
+		return nil, err
+	}
 
-	DB = database
+	return db, nil
 }
