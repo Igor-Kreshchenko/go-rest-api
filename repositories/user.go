@@ -2,7 +2,6 @@ package repositories
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/Igor-Kreshchenko/go-rest-api/models"
 
